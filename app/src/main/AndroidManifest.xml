@@ -55,10 +55,10 @@
             android:label="@string/customer"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CustomerSettingsActivity"
+            android:name=".ui.CustomerSettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DriverSettingsActivity"
+            android:name=".ui.DriverSettingsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".HistoryActivity"
