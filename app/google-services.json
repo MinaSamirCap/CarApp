@@ -1,0 +1,143 @@
+{
+  "project_info": {
+    "project_number": "579769884727",
+    "firebase_url": "https://uber-ea069.firebaseio.com",
+    "project_id": "uber-ea069",
+    "storage_bucket": "uber-ea069.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579769884727:android:dc696d510263a37f",
+        "android_client_info": {
+          "package_name": "com.mmd.mina.uberapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579769884727-eusvg6b68mt57db0auijvj5vb703mk7i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mmd.mina.uberapp",
+            "certificate_hash": "33f4e5c494ab1e6a000f8345f54786d6921ad856"
+          }
+        },
+        {
+          "client_id": "579769884727-r3283t2b6gqnq37pa5q20t39rf1et318.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMXUDZWrtYk9fscT38t0IxV83B0WIvQ60"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579769884727-r3283t2b6gqnq37pa5q20t39rf1et318.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579769884727:android:46e2e0a9317523e4",
+        "android_client_info": {
+          "package_name": "com.example.andoird.uberapp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579769884727-kl5fams3gu8fflnsr7n6oah4fvbsduqo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.andoird.uberapp2",
+            "certificate_hash": "33f4e5c494ab1e6a000f8345f54786d6921ad856"
+          }
+        },
+        {
+          "client_id": "579769884727-r3283t2b6gqnq37pa5q20t39rf1et318.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMXUDZWrtYk9fscT38t0IxV83B0WIvQ60"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579769884727-r3283t2b6gqnq37pa5q20t39rf1et318.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579769884727:android:2ac8c7eb10297239",
+        "android_client_info": {
+          "package_name": "com.simcoder.uber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579769884727-fr437g821lspc7dpltg31dcjc98l4pbl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.simcoder.uber",
+            "certificate_hash": "33f4e5c494ab1e6a000f8345f54786d6921ad856"
+          }
+        },
+        {
+          "client_id": "579769884727-r3283t2b6gqnq37pa5q20t39rf1et318.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMXUDZWrtYk9fscT38t0IxV83B0WIvQ60"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579769884727-r3283t2b6gqnq37pa5q20t39rf1et318.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

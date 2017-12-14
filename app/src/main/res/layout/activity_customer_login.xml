@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/icons"
+    android:padding="10dp"
+    tools:context="com.simcoder.uber.ui.DriverLoginActivity">
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/email_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:textColor="@color/primaryText"
+        android:textColorHint="@color/divider"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:met_baseColor="@color/primaryText"
+        app:met_floatingLabel="highlight"
+        app:met_primaryColor="@color/primaryText"
+        app:met_singleLineEllipsis="true" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/password_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:textColor="@color/primaryText"
+        android:textColorHint="@color/divider"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/email_edit_text"
+        app:met_baseColor="@color/primaryText"
+        app:met_floatingLabel="highlight"
+        app:met_primaryColor="@color/primaryText"
+        app:met_singleLineEllipsis="true" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_background_customer"
+        android:text="@string/login"
+        android:textColor="@color/icons"
+        app:layout_constraintTop_toBottomOf="@+id/password_edit_text" />
+
+    <Button
+        android:id="@+id/register_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background_primary"
+        android:text="@string/register"
+        android:textColor="@color/icons"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.victor.loading.rotate.RotateLoading
+        android:id="@+id/rotate_loading"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:loading_width="5dp"
+        app:loading_color="@color/colorPrimaryDark"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+</android.support.constraint.ConstraintLayout>
