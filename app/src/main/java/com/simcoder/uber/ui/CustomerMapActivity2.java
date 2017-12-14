@@ -3,6 +3,7 @@ package com.simcoder.uber.ui;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -68,7 +69,7 @@ public class CustomerMapActivity2 extends FragmentActivity implements
     Location mLastLocation;
     LocationRequest mLocationRequest;
 
-    private Button mLogout, mRequest, mSettings, mHistory;
+    private Button mRequest;
 
     private LatLng pickupLocation;
 
@@ -92,13 +93,19 @@ public class CustomerMapActivity2 extends FragmentActivity implements
 
     private RatingBar mRatingBar;
 
+    private NavigationView navigationView;
+    private ImageView profileImageView;
+    private TextView nameTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_map2);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        profileImageView = navigationView.getHeaderView(0).findViewById(R.id.profile_image_view);
+        nameTextView = navigationView.getHeaderView(0).findViewById(R.id.name_text_view);
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -124,21 +131,7 @@ public class CustomerMapActivity2 extends FragmentActivity implements
         mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         mRadioGroup.check(R.id.UberX);
 
-        mLogout = (Button) findViewById(R.id.logout);
-        mRequest = (Button) findViewById(R.id.request);
-        mSettings = (Button) findViewById(R.id.settings);
-        mHistory = (Button) findViewById(R.id.history);
-
-        mLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(CustomerMapActivity2.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-                return;
-            }
-        });
+        mRequest = findViewById(R.id.request);
 
         mRequest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,24 +169,6 @@ public class CustomerMapActivity2 extends FragmentActivity implements
                 }
             }
         });
-        mSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CustomerMapActivity2.this, CustomerSettingsActivity.class);
-                startActivity(intent);
-                return;
-            }
-        });
-
-        mHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CustomerMapActivity2.this, HistoryActivity.class);
-                intent.putExtra("customerOrDriver", "Customers");
-                startActivity(intent);
-                return;
-            }
-        });
 
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
@@ -210,6 +185,8 @@ public class CustomerMapActivity2 extends FragmentActivity implements
                 // TODO: Handle the error.
             }
         });
+
+        loadProfile();
     }
 
     private int radius = 1;
@@ -449,7 +426,7 @@ public class CustomerMapActivity2 extends FragmentActivity implements
         if (mDriverMarker != null){
             mDriverMarker.remove();
         }
-        mRequest.setText("call Uber");
+        mRequest.setText(getString(R.string.call_horse));
 
         mDriverInfo.setVisibility(View.GONE);
         mDriverName.setText("");
@@ -562,28 +539,74 @@ public class CustomerMapActivity2 extends FragmentActivity implements
         }
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.profile) {
+            openProfile();
+        } else if (id == R.id.history) {
+            openHistory();
+        } else if (id == R.id.logout) {
+            logoutUser();
+        } else if (id == R.id.about) {
+            openAbout();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void openAbout() {
+        String url = "http://moselaymd.com";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+
+    private void openProfile() {
+        Intent intent = new Intent(CustomerMapActivity2.this, CustomerSettingsActivity.class);
+        startActivity(intent);
+    }
+
+    private void openHistory() {
+        Intent intent = new Intent(CustomerMapActivity2.this, HistoryActivity.class);
+        intent.putExtra("customerOrDriver", "Customers");
+        startActivity(intent);
+    }
+
+    private void logoutUser() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(CustomerMapActivity2.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void loadProfile() {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String userID = mAuth.getCurrentUser().getUid();
+        DatabaseReference mDriverDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child("Customers").child(userID);
+        mDriverDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
+                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                    if (map.get("name") != null) {
+                        nameTextView.setText(map.get("name").toString());
+                    }
+                    if (map.get("profileImageUrl") != null) {
+                        Glide.with(getApplication()).load(map.get("profileImageUrl").toString()).into(profileImageView);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 }

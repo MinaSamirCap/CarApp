@@ -92,14 +92,20 @@ public class DriverMapActivity2 extends FragmentActivity implements
 
     private TextView mCustomerName, mCustomerPhone, mCustomerDestination;
 
+    private NavigationView navigationView;
+    private ImageView profileImageView;
+    private TextView nameTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_map2);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        profileImageView = navigationView.getHeaderView(0).findViewById(R.id.profile_image_view);
+        nameTextView = navigationView.getHeaderView(0).findViewById(R.id.name_text_view);
 
         polylines = new ArrayList<>();
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -155,6 +161,7 @@ public class DriverMapActivity2 extends FragmentActivity implements
         });
 
         getAssignedCustomer();
+        loadProfile();
     }
 
     private void getAssignedCustomer() {
@@ -554,5 +561,29 @@ public class DriverMapActivity2 extends FragmentActivity implements
         Intent intent = new Intent(DriverMapActivity2.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void loadProfile() {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String userID = mAuth.getCurrentUser().getUid();
+        DatabaseReference mDriverDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(userID);
+        mDriverDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
+                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                    if (map.get("name") != null) {
+                        nameTextView.setText(map.get("name").toString());
+                    }
+                    if (map.get("profileImageUrl") != null) {
+                        Glide.with(getApplication()).load(map.get("profileImageUrl").toString()).into(profileImageView);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 }

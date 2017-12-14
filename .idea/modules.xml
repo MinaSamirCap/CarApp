@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Uber.iml" filepath="$PROJECT_DIR$/Uber.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Uber_android_app_clone-master.iml" filepath="$PROJECT_DIR$/Uber_android_app_clone-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CarApp.iml" filepath="$PROJECT_DIR$/CarApp.iml" />
+      <module fileurl="file://G:\Private\Mina\Project\CarApp\Uber.iml" filepath="G:\Private\Mina\Project\CarApp\Uber.iml" />
+      <module fileurl="file://G:\Private\Mina\Project\CarApp\Uber_android_app_clone-master.iml" filepath="G:\Private\Mina\Project\CarApp\Uber_android_app_clone-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://G:\Private\Mina\Project\CarApp\app\app.iml" filepath="G:\Private\Mina\Project\CarApp\app\app.iml" />
     </modules>
   </component>
 </project>

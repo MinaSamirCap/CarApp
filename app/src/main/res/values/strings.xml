@@ -21,11 +21,12 @@
     <string name="network_validation">Please check your internet</string>
     <string name="sign_in_error">Wrong mail or password</string>
     <string name="register_error">Please try another email</string>
+    <string name="call_horse">Call a horse..</string>
+    <string name="one_horse">One</string>
+    <string name="tow_horse">2 - 3</string>
+    <string name="group_horse">Group</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_customer_map2">CustomerMapActivity2</string>
-    <string name="title_activity_driver_map2">DriverMapActivity2</string>
 </resources>
