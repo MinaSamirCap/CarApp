@@ -71,7 +71,7 @@
                 android:visibility="gone" />
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/radio_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -130,5 +130,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:src="@mipmap/company_logo" />
+
+    <com.victor.loading.rotate.RotateLoading
+        android:id="@+id/rotate_loading"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:loading_width="5dp"
+        app:loading_color="@color/colorPrimaryDark"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
 
 </RelativeLayout>
