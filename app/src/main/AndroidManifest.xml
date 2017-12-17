@@ -70,6 +70,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".HistorySingleActivity"
+            android:label="@string/trip_details"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.CustomerMapActivity2"
@@ -77,6 +78,7 @@
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".ui.DriverMapActivity2"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

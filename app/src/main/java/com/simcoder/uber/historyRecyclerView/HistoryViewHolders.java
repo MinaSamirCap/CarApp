@@ -21,17 +21,17 @@ public class HistoryViewHolders extends RecyclerView.ViewHolder implements View.
         super(itemView);
         itemView.setOnClickListener(this);
 
-        rideId = (TextView) itemView.findViewById(R.id.rideId);
-        time = (TextView) itemView.findViewById(R.id.time);
+        rideId = itemView.findViewById(R.id.rideId);
+        time = itemView.findViewById(R.id.time);
     }
 
 
     @Override
     public void onClick(View v) {
-        /*Intent intent = new Intent(v.getContext(), HistorySingleActivity.class);
+        Intent intent = new Intent(v.getContext(), HistorySingleActivity.class);
         Bundle b = new Bundle();
         b.putString("rideId", rideId.getText().toString());
         intent.putExtras(b);
-        v.getContext().startActivity(intent);*/
+        v.getContext().startActivity(intent);
     }
 }

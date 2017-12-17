@@ -52,7 +52,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class HistorySingleActivity extends AppCompatActivity implements OnMapReadyCallback, RoutingListener {
+public class HistorySingleActivity extends AppCompatActivity
+        implements OnMapReadyCallback, RoutingListener {
     private String rideId, currentUserId, customerId, driverId, userDriverOrCustomer;
 
     private TextView rideLocation;
@@ -81,9 +82,9 @@ public class HistorySingleActivity extends AppCompatActivity implements OnMapRea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_single);
 
-        Intent intent = new Intent(this, PayPalService.class);
+        //Intent intent = new Intent(this, PayPalService.class);
         //intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-        startService(intent);
+        //startService(intent);
 
         polylines = new ArrayList<>();
 
