@@ -46,7 +46,7 @@ public class DriverSettingsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDriverDatabase;
 
-    private String userID, nameString, phoneString,
+    private String userIdString, nameString, phoneString,
             carTypeString, serviceTypeString, profileImageUrlSting;
     private Uri resultUri;
 
@@ -69,23 +69,21 @@ public class DriverSettingsActivity extends AppCompatActivity {
         confirmButton = findViewById(R.id.confirm_button);
 
         mAuth = FirebaseAuth.getInstance();
-        userID = mAuth.getCurrentUser().getUid();
-        mDriverDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(userID);
+        userIdString = mAuth.getCurrentUser().getUid();
+        mDriverDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(userIdString);
 
         profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openImageIntent();
+                openGallery();
             }
         });
-
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveUserInformation();
             }
         });
-
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,12 +93,6 @@ public class DriverSettingsActivity extends AppCompatActivity {
 
         getUserInfo();
         loadAds();
-    }
-
-    private void openImageIntent() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, 1);
     }
 
     private void getUserInfo() {
@@ -179,7 +171,7 @@ public class DriverSettingsActivity extends AppCompatActivity {
 
         if (resultUri != null) {
 
-            StorageReference filePath = FirebaseStorage.getInstance().getReference().child("profile_images").child(userID);
+            StorageReference filePath = FirebaseStorage.getInstance().getReference().child("profile_images").child(userIdString);
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), resultUri);
@@ -228,9 +220,15 @@ public class DriverSettingsActivity extends AppCompatActivity {
         }
     }
 
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, 1);
+    }
+
     private void loadAds() {
         Glide.with(getApplication())
-                .load(getString(R.string.driver_ad))
+                .load(getString(R.string.customer_ad))
                 .into(adsImageView);
     }
 
