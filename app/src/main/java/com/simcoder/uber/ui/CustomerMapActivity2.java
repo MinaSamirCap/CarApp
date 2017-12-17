@@ -128,7 +128,7 @@ public class CustomerMapActivity2 extends FragmentActivity implements
         mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
 
         mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        mRadioGroup.check(R.id.UberX);
+        mRadioGroup.check(R.id.one_radio_button);
 
         mRequest = findViewById(R.id.request);
 
@@ -143,7 +143,7 @@ public class CustomerMapActivity2 extends FragmentActivity implements
                 }else{
                     int selectId = mRadioGroup.getCheckedRadioButtonId();
 
-                    final RadioButton radioButton = (RadioButton) findViewById(selectId);
+                    final RadioButton radioButton = findViewById(selectId);
 
                     if (radioButton.getText() == null){
                         return;

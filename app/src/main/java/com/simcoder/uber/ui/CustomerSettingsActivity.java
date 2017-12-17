@@ -39,7 +39,7 @@ public class CustomerSettingsActivity extends AppCompatActivity {
 
     private Button cancelButton, confirmButton;
 
-    private ImageView mProfileImage;
+    private ImageView mProfileImage, adsImageView;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mCustomerDatabase;
@@ -59,7 +59,7 @@ public class CustomerSettingsActivity extends AppCompatActivity {
 
         mNameField = findViewById(R.id.name_edit_text);
         mPhoneField = findViewById(R.id.phone_edit_text);
-
+        adsImageView = findViewById(R.id.ads_image_view);
         mProfileImage = findViewById(R.id.profile_image_view);
 
         cancelButton = findViewById(R.id.cancel_button);
@@ -94,22 +94,31 @@ public class CustomerSettingsActivity extends AppCompatActivity {
                 return;
             }
         });
+
+        loadAds();
     }
-    private void getUserInfo(){
+
+    private void loadAds() {
+        Glide.with(getApplication())
+                .load(getString(R.string.customer_ad))
+                .into(adsImageView);
+    }
+
+    private void getUserInfo() {
         mCustomerDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists() && dataSnapshot.getChildrenCount()>0){
+                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
                     Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                    if(map.get("name")!=null){
+                    if (map.get("name") != null) {
                         mName = map.get("name").toString();
                         mNameField.setText(mName);
                     }
-                    if(map.get("phone")!=null){
+                    if (map.get("phone") != null) {
                         mPhone = map.get("phone").toString();
                         mPhoneField.setText(mPhone);
                     }
-                    if(map.get("profileImageUrl")!=null){
+                    if (map.get("profileImageUrl") != null) {
                         mProfileImageUrl = map.get("profileImageUrl").toString();
                         Glide.with(getApplication()).load(mProfileImageUrl).into(mProfileImage);
                     }
@@ -123,7 +132,6 @@ public class CustomerSettingsActivity extends AppCompatActivity {
     }
 
 
-
     private void saveUserInformation() {
         mName = mNameField.getText().toString();
         mPhone = mPhoneField.getText().toString();
@@ -133,7 +141,7 @@ public class CustomerSettingsActivity extends AppCompatActivity {
         userInfo.put("phone", mPhone);
         mCustomerDatabase.updateChildren(userInfo);
 
-        if(resultUri != null) {
+        if (resultUri != null) {
 
             StorageReference filePath = FirebaseStorage.getInstance().getReference().child("profile_images").child(userID);
             Bitmap bitmap = null;
@@ -168,7 +176,7 @@ public class CustomerSettingsActivity extends AppCompatActivity {
                     return;
                 }
             });
-        }else{
+        } else {
             finish();
         }
 
@@ -177,7 +185,7 @@ public class CustomerSettingsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1 && resultCode == Activity.RESULT_OK){
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             final Uri imageUri = data.getData();
             resultUri = imageUri;
             mProfileImage.setImageURI(resultUri);

@@ -30,6 +30,9 @@
     <string name="tow_horse">2 - 3</string>
     <string name="group_horse">Group</string>
 
+    <string name="driver_ad">http://www.72advertising.com/uploads/5/1/6/3/5163697/4394512_orig.jpg</string>
+    <string name="customer_ad">https://designcontest-com-designcontest.netdna-ssl.com/blog/wp-content/uploads/2015/07/banner-ad-fail-11.jpg</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

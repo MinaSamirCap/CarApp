@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -41,7 +40,7 @@ public class DriverSettingsActivity extends AppCompatActivity {
 
     private Button cancelButton, confirmButton;
 
-    private ImageView mProfileImage;
+    private ImageView mProfileImage, adsImageView;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDriverDatabase;
@@ -67,7 +66,7 @@ public class DriverSettingsActivity extends AppCompatActivity {
         mNameField = findViewById(R.id.name_edit_text);
         mPhoneField = findViewById(R.id.phone_edit_text);
         mCarField = findViewById(R.id.car);
-
+        adsImageView = findViewById(R.id.ads_image_view);
         mProfileImage = findViewById(R.id.profile_image_view);
 
         mRadioGroup = findViewById(R.id.radioGroup);
@@ -104,6 +103,14 @@ public class DriverSettingsActivity extends AppCompatActivity {
                 return;
             }
         });
+
+        loadAds();
+    }
+
+    private void loadAds() {
+        Glide.with(getApplication())
+                .load(getString(R.string.driver_ad))
+                .into(adsImageView);
     }
 
     private void getUserInfo() {
@@ -127,14 +134,14 @@ public class DriverSettingsActivity extends AppCompatActivity {
                     if (map.get("service") != null) {
                         mService = map.get("service").toString();
                         switch (mService) {
-                            case "UberX":
-                                mRadioGroup.check(R.id.UberX);
+                            case "One":
+                                mRadioGroup.check(R.id.one_radio_button);
                                 break;
-                            case "UberBlack":
-                                mRadioGroup.check(R.id.UberBlack);
+                            case "2 - 3":
+                                mRadioGroup.check(R.id.two_radio_button);
                                 break;
-                            case "UberXl":
-                                mRadioGroup.check(R.id.UberXl);
+                            case "Group":
+                                mRadioGroup.check(R.id.group_radio_button);
                                 break;
                         }
                     }
