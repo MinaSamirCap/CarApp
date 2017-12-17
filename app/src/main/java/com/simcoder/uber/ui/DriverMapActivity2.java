@@ -66,34 +66,34 @@ public class DriverMapActivity2 extends FragmentActivity implements
         LocationListener, RoutingListener,
         NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int LOCATION_REQUEST_CODE = 1;
+
     private GoogleMap mMap;
-    GoogleApiClient mGoogleApiClient;
-    Location mLastLocation;
-    LocationRequest mLocationRequest;
+    private SupportMapFragment mapFragment;
 
-    private Button mRideStatus;
+    private GoogleApiClient mGoogleApiClient;
+    private Location mLastLocation;
+    private LocationRequest mLocationRequest;
 
-    private Switch mWorkingSwitch;
+    private Button rideStateButton;
+    private Switch workingSwitchButton;
+    private LinearLayout customerInfoLayout;
+    private NavigationView navigationView;
+    private ImageView profileImageView, customerPhotoImageView;
+    private TextView nameTextView, customerNameTextView, customerPhoneTextView, customerDestinationTextView;
 
+    private Boolean isLoggingOut = false;
     private int status = 0;
-
     private String customerId = "", destination;
     private LatLng destinationLatLng, pickupLatLng;
     private float rideDistance;
 
-    private Boolean isLoggingOut = false;
+    private Marker pickupMarker;
+    private DatabaseReference assignedCustomerPickupLocationRef;
+    private ValueEventListener assignedCustomerPickupLocationRefListener;
 
-    private SupportMapFragment mapFragment;
-
-    private LinearLayout mCustomerInfo;
-
-    private ImageView mCustomerProfileImage;
-
-    private TextView mCustomerName, mCustomerPhone, mCustomerDestination;
-
-    private NavigationView navigationView;
-    private ImageView profileImageView;
-    private TextView nameTextView;
+    private List<Polyline> polyLines;
+    private static final int[] COLORS = new int[]{R.color.primary_dark_material_light};
 
 
     @Override
@@ -101,68 +101,15 @@ public class DriverMapActivity2 extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_map2);
 
-        navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        profileImageView = navigationView.getHeaderView(0).findViewById(R.id.profile_image_view);
-        nameTextView = navigationView.getHeaderView(0).findViewById(R.id.name_text_view);
+        polyLines = new ArrayList<>();
 
-        polylines = new ArrayList<>();
-        mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(DriverMapActivity2.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
-        } else {
-            mapFragment.getMapAsync(this);
-        }
-
-
-        mCustomerInfo = (LinearLayout) findViewById(R.id.customerInfo);
-
-        mCustomerProfileImage = (ImageView) findViewById(R.id.customerProfileImage);
-
-        mCustomerName = (TextView) findViewById(R.id.customerName);
-        mCustomerPhone = (TextView) findViewById(R.id.customerPhone);
-        mCustomerDestination = (TextView) findViewById(R.id.customerDestination);
-
-        mWorkingSwitch = (Switch) findViewById(R.id.workingSwitch);
-        mWorkingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    connectDriver();
-                } else {
-                    disconnectDriver();
-                }
-            }
-        });
-
-        mRideStatus = (Button) findViewById(R.id.rideStatus);
-        mRideStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (status) {
-                    case 1:
-                        status = 2;
-                        erasePolylines();
-                        if (destinationLatLng.latitude != 0.0 && destinationLatLng.longitude != 0.0) {
-                            getRouteToMarker(destinationLatLng);
-                        }
-                        mRideStatus.setText("drive completed");
-
-                        break;
-                    case 2:
-                        recordRide();
-                        endRide();
-                        break;
-                }
-            }
-        });
-
+        initViewsAndClicks();
         getAssignedCustomer();
         loadProfile();
     }
 
+
+    // check if the driver already have a trip that still working with it or not ...
     private void getAssignedCustomer() {
         String driverId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference assignedCustomerRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(driverId).child("customerRequest").child("customerRideId");
@@ -185,10 +132,6 @@ public class DriverMapActivity2 extends FragmentActivity implements
             }
         });
     }
-
-    Marker pickupMarker;
-    private DatabaseReference assignedCustomerPickupLocationRef;
-    private ValueEventListener assignedCustomerPickupLocationRefListener;
 
     private void getAssignedCustomerPickupLocation() {
         assignedCustomerPickupLocationRef = FirebaseDatabase.getInstance().getReference().child("customerRequest").child(customerId).child("l");
@@ -237,9 +180,9 @@ public class DriverMapActivity2 extends FragmentActivity implements
                     Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                     if (map.get("destination") != null) {
                         destination = map.get("destination").toString();
-                        mCustomerDestination.setText("Destination: " + destination);
+                        customerDestinationTextView.setText("Destination: " + destination);
                     } else {
-                        mCustomerDestination.setText("Destination: --");
+                        customerDestinationTextView.setText("Destination: --");
                     }
 
                     Double destinationLat = 0.0;
@@ -261,9 +204,8 @@ public class DriverMapActivity2 extends FragmentActivity implements
         });
     }
 
-
     private void getAssignedCustomerInfo() {
-        mCustomerInfo.setVisibility(View.VISIBLE);
+        customerInfoLayout.setVisibility(View.VISIBLE);
         DatabaseReference mCustomerDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child("Customers").child(customerId);
         mCustomerDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -271,13 +213,13 @@ public class DriverMapActivity2 extends FragmentActivity implements
                 if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
                     Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                     if (map.get("name") != null) {
-                        mCustomerName.setText(map.get("name").toString());
+                        customerNameTextView.setText(map.get("name").toString());
                     }
                     if (map.get("phone") != null) {
-                        mCustomerPhone.setText(map.get("phone").toString());
+                        customerPhoneTextView.setText(map.get("phone").toString());
                     }
                     if (map.get("profileImageUrl") != null) {
-                        Glide.with(getApplication()).load(map.get("profileImageUrl").toString()).into(mCustomerProfileImage);
+                        Glide.with(getApplication()).load(map.get("profileImageUrl").toString()).into(customerPhotoImageView);
                     }
                 }
             }
@@ -288,9 +230,8 @@ public class DriverMapActivity2 extends FragmentActivity implements
         });
     }
 
-
     private void endRide() {
-        mRideStatus.setText("picked customer");
+        rideStateButton.setText(getString(R.string.pick_customer));
         erasePolylines();
 
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -309,11 +250,11 @@ public class DriverMapActivity2 extends FragmentActivity implements
         if (assignedCustomerPickupLocationRefListener != null) {
             assignedCustomerPickupLocationRef.removeEventListener(assignedCustomerPickupLocationRefListener);
         }
-        mCustomerInfo.setVisibility(View.GONE);
-        mCustomerName.setText("");
-        mCustomerPhone.setText("");
-        mCustomerDestination.setText("Destination: --");
-        mCustomerProfileImage.setImageResource(R.mipmap.ic_default_user);
+        customerInfoLayout.setVisibility(View.GONE);
+        customerNameTextView.setText("");
+        customerPhoneTextView.setText("");
+        customerDestinationTextView.setText("Destination: --");
+        customerPhotoImageView.setImageResource(R.mipmap.ic_default_user);
     }
 
     private void recordRide() {
@@ -430,9 +371,6 @@ public class DriverMapActivity2 extends FragmentActivity implements
         geoFire.removeLocation(userId);
     }
 
-
-    final int LOCATION_REQUEST_CODE = 1;
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -449,9 +387,6 @@ public class DriverMapActivity2 extends FragmentActivity implements
     }
 
 
-    private List<Polyline> polylines;
-    private static final int[] COLORS = new int[]{R.color.primary_dark_material_light};
-
     @Override
     public void onRoutingFailure(RouteException e) {
         if (e != null) {
@@ -467,13 +402,13 @@ public class DriverMapActivity2 extends FragmentActivity implements
 
     @Override
     public void onRoutingSuccess(ArrayList<Route> route, int shortestRouteIndex) {
-        if (polylines.size() > 0) {
-            for (Polyline poly : polylines) {
+        if (polyLines.size() > 0) {
+            for (Polyline poly : polyLines) {
                 poly.remove();
             }
         }
 
-        polylines = new ArrayList<>();
+        polyLines = new ArrayList<>();
         //add route(s) to the map.
         for (int i = 0; i < route.size(); i++) {
 
@@ -485,7 +420,7 @@ public class DriverMapActivity2 extends FragmentActivity implements
             polyOptions.width(10 + i * 3);
             polyOptions.addAll(route.get(i).getPoints());
             Polyline polyline = mMap.addPolyline(polyOptions);
-            polylines.add(polyline);
+            polyLines.add(polyline);
 
             Toast.makeText(getApplicationContext(), "Route " + (i + 1) + ": distance - " + route.get(i).getDistanceValue() + ": duration - " + route.get(i).getDurationValue(), Toast.LENGTH_SHORT).show();
         }
@@ -497,10 +432,10 @@ public class DriverMapActivity2 extends FragmentActivity implements
     }
 
     private void erasePolylines() {
-        for (Polyline line : polylines) {
+        for (Polyline line : polyLines) {
             line.remove();
         }
-        polylines.clear();
+        polyLines.clear();
     }
 
     @Override
@@ -512,7 +447,6 @@ public class DriverMapActivity2 extends FragmentActivity implements
             super.onBackPressed();
         }
     }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -582,6 +516,62 @@ public class DriverMapActivity2 extends FragmentActivity implements
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void initViewsAndClicks() {
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        profileImageView = navigationView.getHeaderView(0).findViewById(R.id.profile_image_view);
+        nameTextView = navigationView.getHeaderView(0).findViewById(R.id.name_text_view);
+
+        customerInfoLayout = findViewById(R.id.customer_info_layout);
+        customerPhotoImageView = findViewById(R.id.customer_photo_image_view);
+        customerNameTextView = findViewById(R.id.customer_name_text_view);
+        customerPhoneTextView = findViewById(R.id.customer_phone_text_view);
+        customerDestinationTextView = findViewById(R.id.customer_destination_text_view);
+        workingSwitchButton = findViewById(R.id.working_switch_button);
+        rideStateButton = findViewById(R.id.ride_state_button);
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(DriverMapActivity2.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+        } else {
+            mapFragment.getMapAsync(this);
+        }
+
+        workingSwitchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    connectDriver();
+                } else {
+                    disconnectDriver();
+                }
+            }
+        });
+
+        rideStateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (status) {
+                    case 1:
+                        status = 2;
+                        erasePolylines();
+                        if (destinationLatLng.latitude != 0.0 && destinationLatLng.longitude != 0.0) {
+                            getRouteToMarker(destinationLatLng);
+                        }
+                        rideStateButton.setText(getString(R.string.trip_completed));
+
+                        break;
+                    case 2:
+                        recordRide();
+                        endRide();
+                        break;
+                }
             }
         });
     }

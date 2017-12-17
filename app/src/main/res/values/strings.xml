@@ -34,6 +34,9 @@
     <string name="getting_yours">Getting your horse..</string>
     <string name="looking_for_location">Looking for Horse Location....</string>
     <string name="arrived">Horse Arrived</string>
+    <string name="trip_completed">Trip Completed</string>
+    <string name="pick_customer">Pick a customer</string>
+    <string name="working">Working</string>
 
     <string name="driver_ad">http://www.72advertising.com/uploads/5/1/6/3/5163697/4394512_orig.jpg</string>
     <string name="customer_ad">https://designcontest-com-designcontest.netdna-ssl.com/blog/wp-content/uploads/2015/07/banner-ad-fail-11.jpg</string>

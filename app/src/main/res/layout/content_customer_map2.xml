@@ -37,7 +37,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/driverInfo"
+            android:id="@+id/driver_info_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -47,7 +47,7 @@
             android:visibility="gone">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/driverProfileImage"
+                android:id="@+id/driver_photo_image_view"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
@@ -63,21 +63,21 @@
                 android:padding="20sp">
 
                 <TextView
-                    android:id="@+id/driverName"
+                    android:id="@+id/driver_name_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/driverPhone"
+                    android:id="@+id/driver_phone_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/driverCar"
+                    android:id="@+id/driver_car_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="10sp"
@@ -85,7 +85,7 @@
                     android:visibility="gone" />
 
                 <RatingBar
-                    android:id="@+id/ratingBar"
+                    android:id="@+id/rating_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -103,7 +103,7 @@
             android:padding="10dp">
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/radio_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -135,7 +135,7 @@
             </RadioGroup>
 
             <Button
-                android:id="@+id/request"
+                android:id="@+id/request_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"

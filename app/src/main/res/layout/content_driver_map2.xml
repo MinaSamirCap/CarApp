@@ -18,16 +18,16 @@
         android:orientation="vertical">
 
         <Switch
-            android:id="@+id/workingSwitch"
+            android:id="@+id/working_switch_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10sp"
-            android:text="Working" />
+            android:text="@string/working" />
     </LinearLayout>
 
 
     <LinearLayout
-        android:id="@+id/customerInfo"
+        android:id="@+id/customer_info_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -42,7 +42,7 @@
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/customerProfileImage"
+                android:id="@+id/customer_photo_image_view"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
@@ -58,14 +58,14 @@
                 android:padding="20sp">
 
                 <TextView
-                    android:id="@+id/customerDestination"
+                    android:id="@+id/customer_destination_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Destination: --"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/customerName"
+                    android:id="@+id/customer_name_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="name"
@@ -73,7 +73,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/customerPhone"
+                    android:id="@+id/customer_phone_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/history"
@@ -83,11 +83,11 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/rideStatus"
+            android:id="@+id/ride_state_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_background_driver"
-            android:text="picked customer" />
+            android:text="@string/pick_customer" />
 
 
     </LinearLayout>

@@ -76,7 +76,7 @@ public class CustomerMapActivity2 extends FragmentActivity implements
     private LinearLayout driverInfoLayout;
 
     private NavigationView navigationView;
-    private ImageView profileImageView, dirverPhotoImageView;
+    private ImageView profileImageView, driverPhotoImageView;
     private TextView nameTextView, driverNameTextView, driverPhoneTextView, dirverCarTypeTextView;
     private RadioGroup radioGroup;
     private RatingBar driverRatingBar;
@@ -137,7 +137,7 @@ public class CustomerMapActivity2 extends FragmentActivity implements
             getClosestDriver();
         }
     }
-    
+
     private void getClosestDriver() {
 
         DatabaseReference driverLocation = FirebaseDatabase.getInstance().getReference().child("driversAvailable");
@@ -285,7 +285,7 @@ public class CustomerMapActivity2 extends FragmentActivity implements
                         dirverCarTypeTextView.setText(dataSnapshot.child("car").getValue().toString());
                     }
                     if (dataSnapshot.child("profileImageUrl") != null) {
-                        Glide.with(getApplication()).load(dataSnapshot.child("profileImageUrl").getValue().toString()).into(dirverPhotoImageView);
+                        Glide.with(getApplication()).load(dataSnapshot.child("profileImageUrl").getValue().toString()).into(driverPhotoImageView);
                     }
 
                     int ratingSum = 0;
@@ -359,7 +359,7 @@ public class CustomerMapActivity2 extends FragmentActivity implements
         driverNameTextView.setText("");
         driverPhoneTextView.setText("");
         dirverCarTypeTextView.setText("Destination: --");
-        dirverPhotoImageView.setImageResource(R.mipmap.ic_default_user);
+        driverPhotoImageView.setImageResource(R.mipmap.ic_default_user);
     }
 
     /**Map specific functions -----
@@ -543,18 +543,18 @@ public class CustomerMapActivity2 extends FragmentActivity implements
         navigationView.setNavigationItemSelectedListener(this);
         profileImageView = navigationView.getHeaderView(0).findViewById(R.id.profile_image_view);
         nameTextView = navigationView.getHeaderView(0).findViewById(R.id.name_text_view);
-        driverInfoLayout = findViewById(R.id.driverInfo);
+        driverInfoLayout = findViewById(R.id.driver_info_layout);
 
-        dirverPhotoImageView = findViewById(R.id.driverProfileImage);
+        driverPhotoImageView = findViewById(R.id.driver_photo_image_view);
 
-        driverNameTextView = findViewById(R.id.driverName);
-        driverPhoneTextView = findViewById(R.id.driverPhone);
-        dirverCarTypeTextView = findViewById(R.id.driverCar);
+        driverNameTextView = findViewById(R.id.driver_name_text_view);
+        driverPhoneTextView = findViewById(R.id.driver_phone_text_view);
+        dirverCarTypeTextView = findViewById(R.id.driver_car_text_view);
 
-        driverRatingBar = findViewById(R.id.ratingBar);
-        radioGroup = findViewById(R.id.radioGroup);
+        driverRatingBar = findViewById(R.id.rating_bar);
+        radioGroup = findViewById(R.id.radio_group);
         radioGroup.check(R.id.one_radio_button);
-        requestButton = findViewById(R.id.request);
+        requestButton = findViewById(R.id.request_button);
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
