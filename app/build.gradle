@@ -46,7 +46,7 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0' //for rounded images
     implementation 'com.rengwuxian.materialedittext:library:2.1.4' //for material edit text
     implementation 'com.victor:lib:1.0.4' //for rotate progressbar
-    implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3' //for paypal integration
+    //implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3' //for paypal integration
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

@@ -21,6 +21,13 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="StarRatingBarSmall" parent="android:style/Widget.Material.RatingBar.Small">
+        <item name="android:progressTint">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/divider</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
+
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

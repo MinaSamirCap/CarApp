@@ -228,7 +228,7 @@ public class DriverSettingsActivity extends AppCompatActivity {
 
     private void loadAds() {
         Glide.with(getApplication())
-                .load(getString(R.string.customer_ad))
+                .load(getString(R.string.driver_ad))
                 .into(adsImageView);
     }
 
