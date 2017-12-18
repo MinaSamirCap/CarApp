@@ -65,7 +65,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
-            android:name=".HistoryActivity"
+            android:name=".ui.HistoryActivity"
             android:label="@string/history"
             android:screenOrientation="portrait" />
         <activity

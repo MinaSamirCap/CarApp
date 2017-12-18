@@ -2,6 +2,7 @@ package com.simcoder.uber;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -361,6 +362,15 @@ public class HistorySingleActivity extends AppCompatActivity
             line.remove();
         }
         polylines.clear();
+    }
+
+
+    public static void openActivity(Context context, String rideId){
+        Intent intent = new Intent(context, HistorySingleActivity.class);
+        Bundle b = new Bundle();
+        b.putString("rideId", rideId);
+        intent.putExtras(b);
+        context.startActivity(intent);
     }
 
 }

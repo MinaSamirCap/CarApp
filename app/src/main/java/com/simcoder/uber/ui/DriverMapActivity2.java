@@ -52,7 +52,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.simcoder.uber.HistoryActivity;
 import com.simcoder.uber.R;
 
 import java.util.ArrayList;
@@ -86,7 +85,7 @@ public class DriverMapActivity2 extends FragmentActivity implements
     private int status = 0;
     private String customerId = "", destination;
     private LatLng destinationLatLng, pickupLatLng;
-    private float rideDistance;
+    private float rideDistance; // this variable save the distance of the ride ..
 
     private Marker pickupMarker;
     private DatabaseReference assignedCustomerPickupLocationRef;

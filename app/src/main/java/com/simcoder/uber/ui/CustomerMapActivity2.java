@@ -51,7 +51,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.simcoder.uber.HistoryActivity;
 import com.simcoder.uber.R;
 
 import java.util.HashMap;
@@ -290,7 +289,7 @@ public class CustomerMapActivity2 extends FragmentActivity implements
 
                     int ratingSum = 0;
                     float ratingsTotal = 0;
-                    /*float ratingsAvg = 0;
+                    float ratingsAvg = 0;
                     for (DataSnapshot child : dataSnapshot.child("rating").getChildren()) {
                         ratingSum = ratingSum + Integer.valueOf(child.getValue().toString());
                         ratingsTotal++;
@@ -298,7 +297,7 @@ public class CustomerMapActivity2 extends FragmentActivity implements
                     if (ratingsTotal != 0) {
                         ratingsAvg = ratingSum / ratingsTotal;
                         driverRatingBar.setRating(ratingsAvg);
-                    }*/
+                    }
                 }
             }
 

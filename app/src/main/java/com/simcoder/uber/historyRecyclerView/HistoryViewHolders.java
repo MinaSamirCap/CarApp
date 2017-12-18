@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.simcoder.uber.HistorySingleActivity;
@@ -13,25 +14,18 @@ import com.simcoder.uber.R;
  * Created by manel on 10/10/2017.
  */
 
-public class HistoryViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class HistoryViewHolders extends RecyclerView.ViewHolder {
 
-    public TextView rideId;
-    public TextView time;
+    public TextView distanceTextView;
+    public TextView timeTextView;
+    public RatingBar tripRatingBar;
+
     public HistoryViewHolders(View itemView) {
         super(itemView);
-        itemView.setOnClickListener(this);
-
-        rideId = itemView.findViewById(R.id.rideId);
-        time = itemView.findViewById(R.id.time);
+        distanceTextView = itemView.findViewById(R.id.distance_text_view);
+        timeTextView = itemView.findViewById(R.id.time_text_view);
+        tripRatingBar = itemView.findViewById(R.id.trip_rating_bar);
     }
 
 
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(v.getContext(), HistorySingleActivity.class);
-        Bundle b = new Bundle();
-        b.putString("rideId", rideId.getText().toString());
-        intent.putExtras(b);
-        v.getContext().startActivity(intent);
-    }
 }
