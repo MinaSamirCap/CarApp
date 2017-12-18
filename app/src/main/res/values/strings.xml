@@ -15,6 +15,7 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="logout">Logout</string>
+    <string name="trips">Trips</string>
     <string name="history">History</string>
     <string name="profile">Profile</string>
     <string name="info">About us</string>

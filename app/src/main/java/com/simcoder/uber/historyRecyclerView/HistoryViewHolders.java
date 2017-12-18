@@ -1,13 +1,10 @@
 package com.simcoder.uber.historyRecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.simcoder.uber.HistorySingleActivity;
 import com.simcoder.uber.R;
 
 /**

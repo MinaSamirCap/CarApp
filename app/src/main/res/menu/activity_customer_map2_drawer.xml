@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/profile"
+            android:icon="@mipmap/logout"
+            android:title="@string/profile" />
+        <item
+            android:id="@+id/history"
+            android:icon="@mipmap/history"
+            android:title="@string/history" />
+        <item
+            android:id="@+id/trips"
+            android:icon="@mipmap/trips"
+            android:title="@string/trips" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@mipmap/logout_icon"
+            android:title="@string/logout" />
+    </group>
+
+    <item android:title="@string/communicate">
+        <menu>
+            <item
+                android:id="@+id/about"
+                android:icon="@mipmap/info"
+                android:title="@string/info" />
+        </menu>
+    </item>
+
+</menu>

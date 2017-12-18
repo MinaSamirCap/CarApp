@@ -458,6 +458,8 @@ public class CustomerMapActivity2 extends FragmentActivity implements
             openProfile();
         } else if (id == R.id.history) {
             openHistory();
+        } else if (id == R.id.trips) {
+            openTripsActivity();
         } else if (id == R.id.logout) {
             logoutUser();
         } else if (id == R.id.about) {
@@ -485,6 +487,10 @@ public class CustomerMapActivity2 extends FragmentActivity implements
         Intent intent = new Intent(CustomerMapActivity2.this, HistoryActivity.class);
         intent.putExtra("customerOrDriver", "Customers");
         startActivity(intent);
+    }
+
+    private void openTripsActivity() {
+        FixedTripActivity.openActivity(this);
     }
 
     private void logoutUser() {

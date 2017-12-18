@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.simcoder.uber.HistorySingleActivity;
+import com.simcoder.uber.ui.HistorySingleActivity;
 import com.simcoder.uber.R;
 
 import java.util.List;

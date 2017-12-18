@@ -69,7 +69,7 @@
             android:label="@string/history"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HistorySingleActivity"
+            android:name=".ui.HistorySingleActivity"
             android:label="@string/trip_details"
             android:screenOrientation="portrait" />
         <activity
@@ -80,6 +80,10 @@
             android:name=".ui.DriverMapActivity2"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.FixedTripActivity"
+            android:label="@string/trips"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
