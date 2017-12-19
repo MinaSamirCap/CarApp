@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/icons"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="5dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/map_image_view"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="8dp" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/original_image_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintBottom_toBottomOf="@+id/map_image_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:riv_corner_radius="8dp" />
+
+        <TextView
+            android:id="@+id/trip_name_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/trip_name"
+            android:padding="5dp"
+            android:text="trib name"
+            android:textColor="@color/icons"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/map_image_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/original_image_view" />
+
+
+        <TextView
+            android:id="@+id/distance_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/midWhite"
+            android:gravity="end"
+            android:isIndicator="true"
+            android:padding="2dp"
+            android:text="distance"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/duration_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/midWhite"
+            android:gravity="end"
+            android:isIndicator="true"
+            android:padding="2dp"
+            android:text="duration"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/distance_text_view" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

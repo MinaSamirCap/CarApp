@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20sp">
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/time_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="time"
+        android:text="mapPic"
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:isIndicator="true"
-        android:text="rideId"
+        android:text="duration"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/trip_rating_bar"
         app:layout_constraintEnd_toEndOf="parent"
