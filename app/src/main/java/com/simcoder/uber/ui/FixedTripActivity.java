@@ -39,7 +39,7 @@ public class FixedTripActivity extends AppCompatActivity {
         tripRecyclerView = findViewById(R.id.trips_recycler_view);
         tripAdapter = new TripAdapter(tripsArrayList, this);
 
-        //tripRecyclerView.setItemAnimator(new SlideInLeftAnimator());
+
         tripRecyclerView.setHasFixedSize(true);
         tripRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         tripRecyclerView.addItemDecoration(
@@ -47,7 +47,9 @@ public class FixedTripActivity extends AppCompatActivity {
                         .color(ContextCompat.getColor(this, R.color.transparent))
                         .sizeResId(R.dimen.divider)
                         .build());
-
+        SlideInLeftAnimator slideInLeftAnimator = new SlideInLeftAnimator();
+        slideInLeftAnimator.setAddDuration(500);
+        tripRecyclerView.setItemAnimator(slideInLeftAnimator);
         tripRecyclerView.setAdapter(tripAdapter);
 
         getTrips();
@@ -64,11 +66,14 @@ public class FixedTripActivity extends AppCompatActivity {
                 for (DataSnapshot child : children) {
                     TripModel tripModel = child.getValue(TripModel.class);
                     tripsArrayList.add(tripModel);
-
                 }
                 Collections.reverse(tripsArrayList);
-                //tripAdapter.notifyItemRangeInserted(0, tripsArrayList.size());
-                tripAdapter.notifyDataSetChanged();
+                tripsArrayList.add(tripsArrayList.get(0));
+                tripsArrayList.add(tripsArrayList.get(1));
+                tripsArrayList.add(tripsArrayList.get(0));
+                tripsArrayList.add(tripsArrayList.get(1));
+                tripAdapter.notifyItemRangeInserted(0, tripsArrayList.size());
+                //tripAdapter.notifyDataSetChanged();
             }
 
             @Override
