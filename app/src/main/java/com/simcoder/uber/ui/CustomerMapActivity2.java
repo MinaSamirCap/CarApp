@@ -329,8 +329,13 @@ public class CustomerMapActivity2 extends FragmentActivity implements
 
         isMakeRequest = false;
         geoQuery.removeAllListeners();
-        driverLocationRef.removeEventListener(driverLocationRefListener);
-        driveHasEndedRef.removeEventListener(driveHasEndedRefListener);
+
+        if(driverLocationRefListener != null){
+            driverLocationRef.removeEventListener(driverLocationRefListener);
+        }
+        if(driveHasEndedRefListener != null){
+            driveHasEndedRef.removeEventListener(driveHasEndedRefListener);
+        }
 
         if (driverFoundID != null) {
             DatabaseReference driverRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(driverFoundID).child("customerRequest");
