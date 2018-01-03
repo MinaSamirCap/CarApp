@@ -12,5 +12,5 @@
 
     <color name="midWhite">#88FFFFFF</color>
     <color name="midBlack">#88000000</color>
-    <color name="transparent">#FFFFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
